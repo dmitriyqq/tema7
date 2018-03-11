@@ -66,7 +66,7 @@ int main(){
 		cout<<e<<endl;
 	}
 
-	for(int i = 0; i < 500; i++){
+	for(int i = 0; i < 30; i++){
 	string query ="./7 \"" + r(deps) + "\" ";
 	query += "\"" + r(pos) + "\" ";
 	query += "\"" + to_string((rand()%1000000)/(1+rand()%50)) + "\" ";
