@@ -1,7 +1,7 @@
-#ifndef INC_7_DATATYPES_H
-#define INC_7_DATATYPES_H
+#ifndef INC_7_DATA_TYPES_H
+#define INC_7_DATA_TYPES_H
 
-#include "Utils.h"
+#include "../Database/Utils.h"
 
 enum TableNames{
     EmployeeTable = 0,
@@ -22,12 +22,12 @@ struct Name{
 };
 
 struct Employee{
-    uint32 id, job;
+    uint32 id;
     struct Name name;
 };
 
 struct Job{
-    uint32 id, qualification, free, department;
+    uint32 id, qualification, employee, department;
     float salary;
 };
 
@@ -62,4 +62,4 @@ struct Specialty{
 extern const uint32 TABLE_RECORD_SIZES[NUM_TABLES];
 
 
-#endif //INC_7_DATATYPES_H
+#endif //INC_7_DATA_TYPES_H

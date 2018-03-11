@@ -1,4 +1,4 @@
-#include "Database.h"
+#include "../Database/Database.h"
 
 #ifndef INC_7_DEBUGFUNCTIONS_H
 #define INC_7_DEBUGFUNCTIONS_H

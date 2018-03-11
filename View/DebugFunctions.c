@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "DebugFunctions.h"
-#include "Datatypes.h"
+#include "../Model/Datatypes.h"
 
 
 void debugName(void *array, struct Database *db) {
@@ -11,27 +11,27 @@ void debugName(void *array, struct Database *db) {
 
 void debugEmployee(void *array, struct Database *db) {
     struct Employee *e = (struct Employee*) array;
-    printf("Employee, id = %d, job = %d, name = ", e->id, e->job);
+    printf("Employee(%d): ", e->id);
     debugName((void *) &e->name, NULL);
-
-    enum TableNames jobTable = JobTable;
-    void * job = getRecord(db, jobTable, e->job);
-
-    debugJob(job, db);
+    printf("\n");
 }
 
 void debugJob(void *array, struct Database *db) {
     struct Job *e = (struct Job*) array;
-    printf("Job: id = %d, free = %d, salary = %f\n", e->id, e->free, e->salary);
+    printf("%4d: salary: %8.2f", e->id, e->salary);
 
-    enum TableNames dtTable = DepartmentTable,
-        qtTable = QualificationTable;
-
-    void *dt = getRecord(db, dtTable, e->department),
-         *qt = getRecord(db, qtTable, e->qualification);
+    void *dt = getRecord(db, DepartmentTable, e->department),
+         *qt = getRecord(db, QualificationTable, e->qualification);
 
     debugDepartment(dt, db);
     debugQualification(qt, db);
+
+    if(e->employee > 0){
+        void *et = getRecord(db, EmployeeTable, e->qualification);
+        debugEmployee(et, db);
+    }else{
+        printf("Employee: free");
+    }
 }
 
 void debugDepartment(void *array, struct Database *db) {
@@ -43,16 +43,12 @@ void debugQualification(void *array, struct Database *db) {
     struct Qualification *e = (struct Qualification*) array;
     printf("Qualification(%d): \n", e->id);
 
-    enum TableNames edTable = EducationTable,
-        spTable = SpecialtyTable,
-        posTable = PositionTable;
-
-    void *ed = getRecord(db, edTable, e->education),
-        *sp = getRecord(db, spTable, e->specialty),
-        *pos = getRecord(db, posTable, e->position);
+    void *ed = getRecord(db, EducationTable, e->education),
+         *sp = getRecord(db, SpecialtyTable, e->specialty),
+        *pos = getRecord(db, PositionTable, e->position);
 
     debugEducation(ed, db);
-    debugPosition(pos, db);
+    debugPosition (pos, db);
     debugSpecialty(sp, db);
 }
 

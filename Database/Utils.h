@@ -11,7 +11,7 @@
 #define DEPARTMENT_NAME_SIZE    NAME_SIZE
 #define POSITION_NAME_SIZE      NAME_SIZE
 #define SPECIALTY_NAME_SIZE     NAME_SIZE
-
+#define _DEBUG 1
 typedef unsigned int uint32;
 typedef unsigned char byte;
 
