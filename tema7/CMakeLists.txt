@@ -18,7 +18,6 @@ add_executable(7
         Database/Utils.c
         View/DebugFunctions.h
         View/DebugFunctions.c
-        View/InputFunctions.h
-        View/InputFunctions.c
         View/View.h
         View/View.c)
+

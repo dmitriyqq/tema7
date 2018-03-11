@@ -82,7 +82,7 @@ void createNewTable(uint32 id, const char *name,
 }
 
 void writeDatabase(const struct Database *db){
-    fseek(db->file, SEEK_SET, 0);
+    fseek(db->file, 0, SEEK_SET);
     fwrite(db, sizeof(struct Database), 1, db->file);
 }
 
@@ -90,20 +90,34 @@ struct Array* loadTableInMemory(
         const struct Database *db,
         uint32 tableId){
 
+
     const struct Table *table = &db->tables[tableId];
+    rewind(table->file);
+
     struct Array *array = (struct Array*) malloc(sizeof(struct Array));
 
     array->memory = malloc(table->num_records * table->record_size);
     array->size = table->num_records;
 
-    fseek(table->file, SEEK_SET, 0);
     size_t read = fread(array->memory,
                         table->record_size,
                         table->num_records, table->file);
 
     array->size = table->num_records;
+    array->tableId = tableId;
 
     return array;
+}
+
+int debugArray(struct Array *array, int record_size, void (*print)(void *)){
+    void *ptr = array->memory;
+
+    for(int i = 0; i < array->size; i++){
+        print(ptr);
+        ptr += record_size;
+    }
+
+    return array->size;
 }
 
 
@@ -124,26 +138,28 @@ void printDatabaseInfo(const struct Database * db){
     }
 }
 
-void debugTable(const struct Database * db, uint32 tableId, void (*print)(void *, struct Database* db)){
+int debugTable(const struct Database * db, uint32 tableId, void (*print)(void *)){
     const struct Table *table = &db->tables[tableId];
     FILE * f = table->file;
-
+    rewind(f);
     byte buf[table->record_size];
-    printf("total: %d records\n", table->num_records);
+
     for(int i = 0; i < table->num_records; i++){
         size_t r = fread(buf, sizeof(buf), 1, f);
         if(r != 1){
             log("Reached end of file, but not enough data have been read");
         }
-        print(buf, db);
+        print(buf);
     }
+    //putchar('\n');
 
-    fclose(f);
 }
 
 void addRecords(struct Database *db, uint32 tableId, void* record, int count){
     struct Table *table = &db->tables[tableId];
     FILE *f = table->file;
+
+    fseek(f, 0, SEEK_END);
 
     fwrite(record, table->record_size, count, f);
 

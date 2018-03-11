@@ -1,0 +1,17 @@
+CEO
+CTO
+CFO
+Quality Control
+Sales Manger
+Tech Support
+JuniorDeveloper
+SeniorDeveloper
+TeamLead
+ScrumMaster
+Engineer
+SystemAdmin
+Lawyer
+Scientist
+UI/UX Designer
+
+
