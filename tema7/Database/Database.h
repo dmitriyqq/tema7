@@ -45,7 +45,7 @@ FILE * openFileOrCreateNew(const char* name);
 
 void printTableHeader(const struct Table * table);
 
-int debugArray(struct Array *array, int record_size, void (*print)(void *));
+int coutArray(struct Array *array, int record_size, void (*print)(void *));
 
 void printDatabaseInfo(const struct Database * db);
 

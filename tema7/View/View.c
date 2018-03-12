@@ -178,7 +178,8 @@ void addJob(const char * dep,
 
     addRecords(db, JOBS_TABLE, (void*) j ,1);
     addRecords(db, REQUIREMENTS_TABLE, (void*) q ,1);
-
+    
+    writeDatabase(db);
 }
 
 checkAvailJob(struct Array *jobs, struct Array *quals, char *spec, char *ed, int exp){
@@ -271,12 +272,12 @@ void inputCycle(struct Database * db){
             quals = loadTableInMemory(db, REQUIREMENTS_TABLE);
         }else if(!strcmp(buf, "jobs")){
             jobsHeaderWithName();
-            int num_records = debugArray(jobs, TABLE_RECORD_SIZES[JOBS_TABLE], debugFunc[JOBS_TABLE]);
+            int num_records = coutArray(jobs, TABLE_RECORD_SIZES[JOBS_TABLE], debugFunc[JOBS_TABLE]);
             jobsFooterWithName();
             printf("total: %d records\n", num_records);
         }else if(!strcmp(buf, "quals")){
             qualsHeader();
-            int num_records = debugArray(quals, TABLE_RECORD_SIZES[REQUIREMENTS_TABLE], debugFunc[REQUIREMENTS_TABLE]);
+            int num_records = coutArray(quals, TABLE_RECORD_SIZES[REQUIREMENTS_TABLE], debugFunc[REQUIREMENTS_TABLE]);
             qualsFooter();
             printf("total: %d records\n", num_records);
         }else if(!strcmp(buf, "dbheader")){

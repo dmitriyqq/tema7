@@ -1,0 +1,4 @@
+/home/dima/CLionProjects/kursovaya/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/dima/CLionProjects/kursovaya/cmake-build-debug/CMakeFiles/bot.dir
+/home/dima/CLionProjects/kursovaya/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/dima/CLionProjects/kursovaya/cmake-build-debug/CMakeFiles/kursovaya.dir

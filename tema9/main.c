@@ -4,6 +4,7 @@
 #include "Model/Datatypes.h"
 #include "Database/Database.h"
 #include "View/View.h"
+#include "View/Input.h"
 
 const char* DATABASE_NAME = "database.db";
 
@@ -22,7 +23,6 @@ int main(int argc, char* argv[]) {
         for(int i = 1; i< argc; i++){
             printf("%d: %s\n", i, argv[i]);
         }
-
         addJob(argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], argv[7], argv[8], argv[9], argv[10], myDB);
     }
 

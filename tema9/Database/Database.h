@@ -18,16 +18,18 @@ struct Database{
     FILE* file;
 };
 
+struct Array{
+    uint32 size, tableId;
+    void** memory;
+};
+
 struct Database* initDatabase(
         const char* filename,
         uint32 num_tables,
         const char table_names[][MAX_TABLE_NAME],
         const uint32 table_sizes[]);
 
-struct Array{
-    uint32 size, tableId;
-    void** memory;
-};
+
 
 void destroyTable(struct Table* table);
 

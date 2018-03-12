@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
-project(7 C)
+project(7 C CXX)
 
 set(CMAKE_C_STANDARD 99)
 
@@ -7,6 +7,7 @@ find_package(PkgConfig)
 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+
 
 add_executable(7
         main.c
@@ -21,3 +22,4 @@ add_executable(7
         View/View.h
         View/View.c)
 
+add_subdirectory(Generator)

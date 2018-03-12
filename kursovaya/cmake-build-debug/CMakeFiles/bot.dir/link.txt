@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/bot.dir/bot.cpp.o CMakeFiles/bot.dir/stuff.cpp.o  -o bot 

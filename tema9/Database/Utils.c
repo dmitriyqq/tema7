@@ -7,3 +7,5 @@ void log(const char * msg){
     printf("[LOG:] %s\n", msg);
 #endif
 }
+
+const int BUF_SIZE = 32;

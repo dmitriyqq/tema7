@@ -103,20 +103,21 @@ struct Array* loadTableInMemory(
                         table->record_size,
                         table->num_records, table->file);
 
-    array->size = table->num_records;
+    if(read != table->num_records)
+        log("Reached end of file, but not enough records was loaded");
+
+    array->size = (uint32) read;
     array->tableId = tableId;
 
     return array;
 }
 
-int debugArray(struct Array *array, int record_size, void (*print)(void *)){
+int coutArray(struct Array *array, int record_size, void (*print)(void *)){
     void *ptr = array->memory;
-
     for(int i = 0; i < array->size; i++){
         print(ptr);
         ptr += record_size;
     }
-
     return array->size;
 }
 
@@ -173,7 +174,6 @@ void* getRecord(struct Database* db, uint32 tableId, int id){
     fseek(f, SEEK_SET, id * table->record_size);
     void* array = malloc(table->record_size);
     fread(array, table->record_size, 1, f);
-    fclose(f);
 
     return array;
 }

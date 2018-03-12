@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dima/CLionProjects/kursovaya/bot.cpp
+cstring
+-
+climits
+-
+vector
+-
+iostream
+/home/dima/CLionProjects/kursovaya/iostream
+stuff.h
+/home/dima/CLionProjects/kursovaya/stuff.h
+
+/home/dima/CLionProjects/kursovaya/stuff.cpp
+vector
+-
+stuff.h
+/home/dima/CLionProjects/kursovaya/stuff.h
+
+/home/dima/CLionProjects/kursovaya/stuff.h
+algorithm
+-
+iostream
+-
+

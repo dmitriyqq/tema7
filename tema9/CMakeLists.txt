@@ -19,5 +19,5 @@ add_executable(7
         View/DebugFunctions.h
         View/DebugFunctions.c
         View/View.h
-        View/View.c)
+        View/View.c View/Input.c View/Input.h View/Sort.c View/Sort.h BinTree/Tree.c BinTree/Tree.h)
 

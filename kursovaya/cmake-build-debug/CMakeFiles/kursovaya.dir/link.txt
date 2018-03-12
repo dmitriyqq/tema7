@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/kursovaya.dir/main.cpp.o CMakeFiles/kursovaya.dir/stuff.cpp.o  -o kursovaya 

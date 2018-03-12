@@ -6,6 +6,8 @@
 
 #define _DEBUG 1
 
+extern const int BUF_SIZE;
+
 typedef unsigned int uint32;
 typedef unsigned char byte;
 

@@ -5,10 +5,22 @@
 
 void debugJob(void *array);
 
-void debugQualification(void *array);
+void coutQualification(void *array);
 
-void debugJobWithName(void *array);
+void coutJob(void *array);
 
 extern void (*debugFunc[NUM_TABLES])(void*);
+
+void jobsFooter();
+
+void jobsHeader();
+
+void jobsFooterWithName();
+
+void jobsHeaderWithName();
+
+void qualsFooter();
+
+void qualsHeader();
 
 #endif //INC_7_DEBUGFUNCTIONS_H
