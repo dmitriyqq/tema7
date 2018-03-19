@@ -19,14 +19,12 @@ struct Node* createNode(void * val){
     newNode->value = val;
     newNode->left = NULL;
     newNode->right = NULL;
+
     newNode->height = 0;
     newNode->all = 1;
 
     struct Job* j= val;
-    if(j->free)
-        newNode->all = 0;
-    else
-        newNode->all = 1;
+    newNode->free = j->free;
 
     return newNode;
 }
@@ -36,7 +34,7 @@ void traverse(struct Node *v) {
     if(v != NULL){
         traverse(v->left);
         struct Job* j = v->value;
-        printf("Job: %s all: %d free: %d", j->position, v->all, v->free);
+        printf("Job: %16s, all: %4d, free: %4d\n", j->position, v->all, v->free);
         traverse(v->right);
     }
 }
@@ -55,7 +53,7 @@ void addNode(void *val, struct Node **v) {
     struct Node* vv = *v;
 
     if(vv == NULL){
-        vv = createNode(val);
+        vv = *v = createNode(val);
     }else if(cmp(vv->value, val) > 0){
         addNode(val, &vv->left);
     }else if(cmp(vv->value, val) < 0){
@@ -63,14 +61,11 @@ void addNode(void *val, struct Node **v) {
     }else{
         vv->all++;
         struct Job* j = val;
-        if(!j->free)
+        if(j->free)
             vv->free++;
     }
 
-    // v->height = 1;
-    // v->height += (v->left != nullptr) ? v->left->height : -1;
-    // v->height += (v->right != nullptr) ? v->right->height : -1;
-    /*
+
 
     int rh, lh, llh, lrh, rlh, rrh;
     rh = lh = llh = lrh = rlh = rrh = -1;
@@ -101,16 +96,16 @@ void addNode(void *val, struct Node **v) {
     if(rh >= lh+2){
     // Left rotation
         if(rlh <= rrh) {
-            smallLeft(v);//small rotation
+            smallLeft(v); // small rotation
         }else{
-            bigLeft(v);//big rotation
+            bigLeft(v); // big rotation
         }
     }else if(lh >= rh+2){
-                // Right rotation
+    // Right rotation
         if(lrh <= llh) {
-            smallRight(v);//small rotation
+            smallRight(v); // small rotation
         }else{
-            bigRight(v);//big rotation
+            bigRight(v); // big rotation
         }
     }
 
@@ -126,11 +121,14 @@ void addNode(void *val, struct Node **v) {
 
         vv->height = max(lh,rh) + 1;
     }
-    */
 }
 
 void destroyTree(struct Node *v) {
-
+    if(v != NULL) {
+        destroyTree(v->right);
+        destroyTree(v->left);
+        free(v);
+    }
 }
 
 void bigLeft(struct Node **a) {
@@ -144,15 +142,22 @@ void bigRight(struct Node **a) {
 }
 
 void smallLeft(struct Node **a) {
-    struct Node *t = *a;
-    a = &(*a)->right;
-    t->right = (*a)->left;
-    (*a)->left = t;
+    struct Node *b = (*a)->right;
+    struct Node *c = b->left;
+
+    b->left = (*a);
+    (*a)->right = c;
+
+    *a = b;
 }
 
 void smallRight(struct Node **a) {
-    struct Node *t  = *a;
-    a = &(*a)->left;
-    t->left = (*a)->right;
-    (*a)->right = t;
+    struct Node *b = (*a)->left;
+    struct Node *c = b->right;
+
+    b->right = (*a);
+    (*a)->left = c;
+
+    *a = b;
 }
+

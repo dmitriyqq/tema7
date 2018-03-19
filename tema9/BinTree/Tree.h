@@ -16,11 +16,9 @@ struct Node{
 
 void traverse(struct Node * v);
 
-void addNode(void *val,struct Node **v);
+void addNode(void *val, struct Node **v);
 
 void destroyTree(struct Node *v);
-
-void prettyPrint(struct Node *v);
 
 void bigLeft(struct Node **v);
 
@@ -30,8 +28,6 @@ void smallLeft(struct Node **v);
 
 void smallRight(struct Node **v);
 
-
 struct Node* createNode(void * val);
-
 
 #endif //INC_7_TREE_H

@@ -79,7 +79,7 @@ void scanJob(struct Database * db){
     j->salary = promptFloat("Salary");
     j->free = promptYN("Free");
 
-    if(j->free){
+    if(!j->free){
         promptStrBuf("First Name", j->name.first_name);
         promptStrBuf("Middle Name", j->name.middle_name);
         promptStrBuf("Last Name", j->name.last_name);
@@ -124,7 +124,7 @@ void addJob(const char * dep,
     j->salary = strtof(salary, &e);
     j->free = (*free == '1') ? 1 : 0;
 
-    if(j->free){
+    if(!j->free){
         strcpy(j->name.first_name, first);
         strcpy(j->name.middle_name, middle);
         strcpy(j->name.last_name, last);

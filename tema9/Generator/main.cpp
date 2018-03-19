@@ -66,8 +66,8 @@ int main(){
 		cout<<e<<endl;
 	}
 
-	for(int i = 0; i < 500; i++){
-	string query ="./7 \"" + r(deps) + "\" ";
+	for(int i = 0; i < 30; i++){
+	string query ="../bin/7 \"" + r(deps) + "\" ";
 	query += "\"" + r(pos) + "\" ";
 	query += "\"" + to_string((rand()%1000000)/(1+rand()%50)) + "\" ";
 	bool isfree = rand()%2;
@@ -79,7 +79,7 @@ int main(){
 	query += "\"" + r(eds) + "\" ";
 		query += "\"" + to_string(rand()%25) + "\" ";
 
-//		cout<<query<<endl;
+		cout<<query<<endl;
 		system(query.c_str());
 	}
 }

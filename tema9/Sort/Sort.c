@@ -4,7 +4,7 @@
 
 #include "Sort.h"
 #include <string.h>
-#include "DebugFunctions.h"
+#include "../View/DebugFunctions.h"
 
 int cmpNames(struct Job* a, struct Job* b){
     struct Name *an = &a->name;
@@ -33,55 +33,6 @@ int cmpNames(struct Job* a, struct Job* b){
     }
 }
 
-void swap( void **a, void **b){
-    void* t = *a;
-    *a = *b;
-    *b = t;
-}
-
-int binary_search(void** a, size_t size, struct Job* value) {
-    int l = 0, r = (int)size, m;
-
-    while(r-l > 1){
-        m = (r+l)/2;
-
-        if(cmpNames(a[m],value))
-            r = m;
-        else
-            l = m;
-    }
-
-    if(cmpNames(value,a[l]))
-        return r;
-    else
-        return l;
-}
-
-void getEmployees(struct Array *jobs){
-    void** a = jobs->memory;
-    int size = jobs->size;
-
-
-    for(int k = 1; k < size; k++){
-        struct Job* c = a[k];
-        int i = binary_search(a, (size_t) k, c);
-        for(int j = k; j > i; j--){
-            a[j] = a[j-1];
-        }
-        a[i] = c;
-    }
-
-    jobsHeaderWithName();
-    for(int i = 0; i < jobs->size; i++){
-        struct Job* cj = jobs->memory[i];
-        if(cj->free){
-            debugFunc[JOBS_TABLE]((void*)cj);
-        }
-    }
-    jobsFooterWithName();
-
-}
-
 int cmpSalary(struct Job* a, struct Job* b){
     struct Name *an = &a->name;
     struct Name *bn = &b->name;
@@ -90,33 +41,38 @@ int cmpSalary(struct Job* a, struct Job* b){
 
 }
 
-void getJobs(struct Array *jobs){
-    void** a = jobs->memory;
-    int size = jobs->size;
-    int is_swapped = 1;
-    int begini = 0;
-    int endi = size-1;
-    while (is_swapped){
-        is_swapped = 0;
-        for(int i = begini; i < endi; i++){
-            if(cmpSalary(a[i], a[i+1])){
-                is_swapped = 1;
-                swap(a[i], a[i+1]);
-            }
-        }
-        endi--;
-        if(!is_swapped)
-            break;
-        is_swapped = 0;
-
-        for(int i = endi; i >= begini; i--){
-            if(cmpSalary(a[i], a[i+1])){
-                is_swapped = 1;
-                swap(a[i], a[i+1]);
-            }
-        }
-        begini++;
+int cmpstr(struct Job* a, struct Job* b){
+    if(strcmp(a->department, b->department) >= 0){
+        return 1;
+    }else{
+        return 0;
     }
+}
+
+void swap( void **a, void **b){
+    void* t = *a;
+    *a = *b;
+    *b = t;
+}
+
+int binary_search(void** a, size_t size, void* value, int(*cmpless)(void*, void*)) {
+    int l = 0, r = (int)size, m;
+    while(r-l > 1){
+        m = (r+l)/2;
+        if(cmpless(a[m],value))
+            r = m;
+        else
+            l = m;
+    }
+
+    if(cmpless(value,a[l]))
+        return r;
+    else
+        return l;
+}
+
+void sortEmployees(struct Array *jobs){
+    insertionSort(jobs, cmpNames);
 
     jobsHeaderWithName();
     for(int i = 0; i < jobs->size; i++){
@@ -126,5 +82,67 @@ void getJobs(struct Array *jobs){
         }
     }
     jobsFooterWithName();
+}
 
+void sortDeps(struct Array *jobs){
+    insertionSort(jobs, cmpstr);
+}
+
+
+
+
+void sortJobs(struct Array *jobs){
+    shakerSort(jobs, cmpSalary);
+
+    jobsHeaderWithName();
+    for(int i = 0; i < jobs->size; i++){
+        struct Job* cj = jobs->memory[i];
+        if(cj->free){
+            debugFunc[JOBS_TABLE]((void*)cj);
+        }
+    }
+    jobsFooterWithName();
+}
+
+void shakerSort(struct Array * array, int(*cmpless)(void*, void*)){
+    void** a = array->memory;
+    int size = array->size;
+    int is_swapped = 1;
+    int begini = 0;
+    int endi = size-1;
+    while (is_swapped){
+        is_swapped = 0;
+
+        for(int i = begini; i < endi; i++){
+            if(cmpless(a[i], a[i+1])){
+                is_swapped = 1;
+                swap(&a[i], &a[i+1]);
+            }
+        }
+
+        endi--;
+        if(!is_swapped)
+            break;
+
+        for(int i = endi; i >= begini; i--){
+            if(cmpless(a[i], a[i+1])){
+                is_swapped = 1;
+                swap(&a[i], &a[i+1]);
+            }
+        }
+        begini++;
+    }
+}
+
+void insertionSort(struct Array * array, int(*cmpless)(void*, void*)){
+    void** a = array->memory;
+    int size = array->size;
+    for(int k = 1; k < size; k++){
+        struct Job* c = a[k];
+        int i = binary_search(a, (size_t) k, c, cmpless);
+        for(int j = k; j > i; j--){
+            a[j] = a[j-1];
+        }
+        a[i] = c;
+    }
 }

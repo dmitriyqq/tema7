@@ -11,7 +11,7 @@ void debugJob(void *array) {
 void coutJob(void *array) {
     struct Job *e = (struct Job*) array;
     printf("|%16.16s|%16.16s|%16.2f|%5d|%16.16s|%16.16s|%16.16s|\n", e->department, e->position, e->salary, e->free,
-           (e->free) ? e->name.last_name : "", (e->free) ? e->name.first_name : "",(e->free) ? e->name.middle_name : "");
+           (!e->free) ? e->name.last_name : "", (!e->free) ? e->name.first_name : "",(!e->free) ? e->name.middle_name : "");
 }
 
 void coutQualification(void *array) {

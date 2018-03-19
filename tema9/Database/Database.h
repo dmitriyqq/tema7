@@ -29,8 +29,6 @@ struct Database* initDatabase(
         const char table_names[][MAX_TABLE_NAME],
         const uint32 table_sizes[]);
 
-
-
 void destroyTable(struct Table* table);
 
 void destroyDatabase(struct Database* database);
@@ -47,7 +45,9 @@ FILE * openFileOrCreateNew(const char* name);
 
 void printTableHeader(const struct Table * table);
 
-int debugArray(struct Array *array, int record_size, void (*print)(void *));
+int debugArray(struct Array *array,
+               int record_size,
+               void (*print)(void *));
 
 void printDatabaseInfo(const struct Database * db);
 
@@ -74,4 +74,5 @@ void* getRecord(
 
 void writeDatabase(const struct Database *db);
 
+void* destroyArray(struct Array* array);
 #endif //INC_7_DATABASE_H

@@ -178,3 +178,11 @@ void* getRecord(struct Database* db, uint32 tableId, int id){
 
     return array;
 }
+
+void* destroyArray(struct Array* array){
+    for(int i = 0; i < array->size; i++){
+        free(array->memory[i]);
+    }
+    free(array->memory);
+    free(array);
+}
