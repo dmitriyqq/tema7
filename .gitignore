@@ -1,0 +1,15 @@
+
+/tema9/bin
+/tema9/gen
+
+!/gen/*.cpp*
+!/gen/*CMake*
+/tema9/.idea
+/tema9/cmake-build-debug
+
+/tema8/.idea
+/tema8/cmake-build-debug
+
+
+.*
+!.gitignore
