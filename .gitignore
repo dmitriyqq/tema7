@@ -9,7 +9,7 @@
 
 /tema8/.idea
 /tema8/cmake-build-debug
-
+/tema8/build
 
 .*
 !.gitignore
